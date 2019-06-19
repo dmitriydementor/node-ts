@@ -1,24 +1,18 @@
-import * as FormData from 'form-data';
-import { request } from 'http';
-import { createReadStream } from 'fs';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
 
-const readStream = createReadStream('./picture.png');
+const PORT = process.env.PORT || 5000;
 
-const form = new FormData();
-form.append('file', readStream);
-form.append('firstName', 'Dmitriy');
-form.append('lastName', 'Koshevets');
+console.log(process.env);
 
-console.log(form.getHeaders());
-
-const req = request({
-    host: 'localhost',
-    path: '/upload',
-    port: 5000,
-    method: 'POST',
-    headers: form.getHeaders(),
-}, response => {
-    console.log(response.statusCode);
+const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(process.env));
 });
 
-form.pipe(req);
+server.listen(PORT, (error: any) => {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log(`Server listening on port ${PORT}`);
+    }
+});
