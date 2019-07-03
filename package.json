@@ -20,6 +20,8 @@
     },
     "dependencies": {
         "@types/form-data": "^2.2.1",
-        "form-data": "^2.3.3"
+        "@types/multiparty": "0.0.32",
+        "form-data": "^2.3.3",
+        "multiparty": "^4.2.1"
     }
 }
